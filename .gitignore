@@ -1,0 +1,6 @@
+cabal-dev/
+dist/
+*.hi
+*.o
+*~
+*.sw?
