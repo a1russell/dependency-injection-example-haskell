@@ -20,6 +20,9 @@ tests = test
     , "calculates tax of $0 when no taxable given" ~: do
         let taxable = Taxable 0
         0 @=? tax taxable
+    , "calculates tax of $1 given $10 taxable" ~: do
+        let taxable = Taxable 10
+        1 @=? tax taxable
     ]
 
 main :: IO Counts

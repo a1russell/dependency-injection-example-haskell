@@ -9,4 +9,4 @@ class Tax a where
 data Taxable = Taxable { taxable :: Double }
 
 instance Tax Taxable where
-    tax _ = 0
+    tax taxable' = (taxable taxable') * 0.10
