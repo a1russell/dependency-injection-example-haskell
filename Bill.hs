@@ -1,12 +1,12 @@
 module Bill where
 
-bill :: (GetTax a) => a -> [Double] -> Double
-bill tax prices = (sum prices) + (getTax tax)
+bill :: (Tax a) => a -> [Double] -> Double
+bill taxable prices = (sum prices) + (tax taxable)
 
-class GetTax a where
-    getTax :: a -> Double
+class Tax a where
+    tax :: a -> Double
 
-data Tax = Tax { tax :: Double }
+data Taxable = Taxable { taxable :: Double }
 
-instance GetTax Tax where
-    getTax _ = 0
+instance Tax Taxable where
+    tax _ = 0
