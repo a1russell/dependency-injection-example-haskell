@@ -17,6 +17,9 @@ tests = test
     , "calculates bill of $11 when given two prices of $5 each" ~: do
         let bill' = bill $ StubTax1 ()
         11 @=? bill' [5, 5]
+    , "calculates tax of $0 when no subtotal given" ~: do
+        let tax = Tax 0
+        0 @=? getTax tax
     ]
 
 main :: IO Counts
