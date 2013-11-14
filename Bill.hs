@@ -1,4 +1,7 @@
 module Bill where
 
-bill :: [Double] -> Double
-bill prices = 0
+bill :: (GetTax a) => a -> [Double] -> Double
+bill tax prices = (sum prices) + (getTax tax)
+
+class GetTax a where
+    getTax :: a -> Double
