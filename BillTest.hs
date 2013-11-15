@@ -18,11 +18,9 @@ tests = test
         let bill' = bill $ StubTaxable1 ()
         11 @=? bill' [5, 5]
     , "calculates tax of $0 when no taxable given" ~: do
-        let taxable = Taxable 0
-        0 @=? tax taxable
+        0 @=? tax (0 :: Double)
     , "calculates tax of $1 given $10 taxable" ~: do
-        let taxable = Taxable 10
-        1 @=? tax taxable
+        1 @=? tax (10.0 :: Double)
     ]
 
 main :: IO Counts
