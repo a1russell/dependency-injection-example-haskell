@@ -1,10 +1,12 @@
 module Bill where
 
-bill :: (Tax a) => a -> [Double] -> Double
-bill taxable prices = (sum prices) + (tax taxable)
+newtype Taxer = Taxer { tax :: Double -> Double }
 
-class Tax a where
-    tax :: a -> Double
+bill = bill' $ Taxer tax'
 
-instance Tax Double where
-    tax taxable = taxable * 0.10
+bill' :: Taxer -> [Double] -> Double
+bill' taxer prices = pricesSum + (tax taxer pricesSum)
+  where pricesSum = sum prices
+
+tax' :: Double -> Double
+tax' = (*0.10)
