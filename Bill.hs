@@ -3,8 +3,8 @@ module Bill where
 import Tax
 
 bill :: [Double] -> Double
-bill = bill' $ Taxer tax'
+bill = bill' Taxer
 
-bill' :: Taxer -> [Double] -> Double
+bill' :: (Tax a) => a -> [Double] -> Double
 bill' taxer' prices = pricesSum + (tax taxer' pricesSum)
   where pricesSum = sum prices

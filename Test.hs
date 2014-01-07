@@ -3,12 +3,20 @@ import Test.HUnit
 import Bill
 import Tax
 
+data StubTaxer0 = StubTaxer0
+instance Tax StubTaxer0 where
+    tax _ = const 0
+
+data StubTaxer1 = StubTaxer1
+instance Tax StubTaxer1 where
+    tax _ = const 1
+
 billTests =
     [ "calculates bill of 0 when no prices given" ~: do
-        let bill = bill' $ Taxer $ const 0
+        let bill = bill' StubTaxer0
         0 @=? bill []
     , "calculates bill of $11 when given two prices of $5 each" ~: do
-        let bill = bill' $ Taxer $ const 1
+        let bill = bill' StubTaxer1
         11 @=? bill [5, 5]
     ]
 

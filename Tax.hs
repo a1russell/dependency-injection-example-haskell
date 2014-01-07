@@ -1,6 +1,12 @@
 module Tax where
 
-newtype Taxer = Taxer { tax :: Double -> Double }
+data Taxer = Taxer
+
+class Tax a where
+    tax :: a -> Double -> Double
+
+instance Tax Taxer where
+    tax _ = tax'
 
 tax' :: Double -> Double
 tax' = (*0.10)
