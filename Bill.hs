@@ -2,9 +2,19 @@ module Bill where
 
 import Tax
 
-bill :: [Double] -> Double
-bill = bill' $ Taxer tax'
+newtype BillDep = BillDep { taxFn' :: TaxFn }
 
-bill' :: Taxer -> [Double] -> Double
-bill' taxer' prices = pricesSum + (tax taxer' pricesSum)
-  where pricesSum = sum prices
+newtype BillFn = BillFn { bill :: BillDep -> [Double] -> Double }
+
+billFn :: BillFn
+billFn = BillFn bill'
+
+bill' :: BillDep -> [Double] -> Double
+bill' billDep prices =
+  let
+    taxFn'' = taxFn' billDep
+    tax'' = tax taxFn''
+    pricesSum = sum prices
+    taxOfPrices = tax'' pricesSum
+  in
+    pricesSum + taxOfPrices

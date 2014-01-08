@@ -1,6 +1,9 @@
 module Tax where
 
-newtype Taxer = Taxer { tax :: Double -> Double }
+newtype TaxFn = TaxFn { tax :: Double -> Double }
+
+taxFn :: TaxFn
+taxFn = TaxFn tax'
 
 tax' :: Double -> Double
 tax' = (*0.10)
