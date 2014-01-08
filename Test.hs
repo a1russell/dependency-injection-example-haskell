@@ -6,29 +6,23 @@ import Tax
 billTests =
     [ "calculates bill of 0 when no prices given" ~:
       let
-        taxFn = TaxFn $ const 0
-        tax'' = tax taxFn
-        billDep = BillDep taxFn
-        bill'' = bill billFn $ billDep
+        taxable = Taxable $ const 0
+        bill' = bill taxable
       in do
-        0 @=? bill'' []
+        0 @=? bill' []
     , "calculates bill of $11 when given two prices of $5 each" ~:
       let
-        taxFn = TaxFn $ const 1
-        tax'' = tax taxFn
-        billDep = BillDep taxFn
-        bill'' = bill billFn $ billDep
+        taxable = Taxable $ const 1
+        bill' = bill taxable
       in do
-        11 @=? bill'' [5, 5]
+        11 @=? bill' [5, 5]
     ]
 
 taxTests =
     [ "calculates tax of $0 when no taxable given" ~: do
-      let tax'' = tax taxFn
-      0 @=? tax'' 0
+      0 @=? tax 0
     , "calculates tax of $1 given $10 taxable" ~: do
-      let tax'' = tax taxFn
-      1 @=? tax'' 10.0
+      1 @=? tax 10.0
     ]
 
 tests = test $ billTests ++ taxTests
