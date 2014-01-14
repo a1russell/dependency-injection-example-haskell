@@ -9,8 +9,8 @@ newtype Taxable = Taxable { tax' :: Double -> Double }
 bill :: [Double] -> Reader Taxable Double
 bill prices = ReaderT $ \taxable ->
   let
-    pricesSum = sum prices
+    totalPrice = sum prices
     tax'' = tax' taxable
-    taxOfPrices = tax'' pricesSum
+    taxOfPrices = tax'' totalPrice
   in
-    return $ pricesSum + taxOfPrices
+    return $ totalPrice + taxOfPrices
