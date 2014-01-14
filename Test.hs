@@ -1,4 +1,3 @@
-import Control.Monad.Reader
 import Test.HUnit
 
 import Bill
@@ -8,13 +7,13 @@ billTests =
     [ "calculates bill of 0 when no prices given" ~:
       let
         taxable = Taxable $ const 0
-        bill' = flip runReader taxable . bill
+        bill' = bill taxable
       in do
         0 @=? bill' []
     , "calculates bill of $11 when given two prices of $5 each" ~:
       let
         taxable = Taxable $ const 1
-        bill' = flip runReader taxable . bill
+        bill' = bill taxable
       in do
         11 @=? bill' [5, 5]
     ]

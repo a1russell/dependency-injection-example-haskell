@@ -1,16 +1,14 @@
 module Bill where
 
-import Control.Monad.Reader
-
 import Tax
 
 newtype Taxable = Taxable { tax' :: Double -> Double }
 
-bill :: [Double] -> Reader Taxable Double
-bill prices = ReaderT $ \taxable ->
+bill :: Taxable -> [Double] -> Double
+bill taxable prices =
   let
     tax'' = tax' taxable
     pricesSum = sum prices
     taxOfPrices = tax'' pricesSum
   in
-    return $ pricesSum + taxOfPrices
+    pricesSum + taxOfPrices
