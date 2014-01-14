@@ -6,7 +6,9 @@ import Tax
 
 newtype Taxable = Taxable { tax' :: Double -> Double }
 
-bill :: [Double] -> Reader Taxable Double
+type TaxableReader = Reader Taxable
+
+bill :: [Double] -> TaxableReader Double
 bill prices =
   let
     totalPrice = sum prices
