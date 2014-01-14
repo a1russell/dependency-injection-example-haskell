@@ -4,13 +4,15 @@ import Control.Monad.Reader
 
 import Tax
 
-type TaxableReader = Reader (Double -> Double)
+newtype Taxable = Taxable { tax' :: Double -> Double }
+
+type TaxableReader = Reader Taxable
 
 bill :: [Double] -> TaxableReader Double
 bill prices =
   let
     totalPrice = sum prices
   in do
-    tax'' <- ask
+    tax'' <- asks tax'
     let taxOfPrices = tax'' totalPrice
     return $ totalPrice + taxOfPrices
