@@ -4,12 +4,18 @@ import Bill
 import Tax
 
 billTests =
-    [ "calculates bill of 0 when no prices given" ~: do
-      let bill' = bill $ const 0
-      0 @=? bill' []
-    , "calculates bill of $11 when given two prices of $5 each" ~: do
-      let bill' = bill $ const 1
-      11 @=? bill' [5, 5]
+    [ "calculates bill of 0 when no prices given" ~:
+      let
+        taxable = Taxable $ const 0
+        bill' = bill taxable
+      in do
+        0 @=? bill' []
+    , "calculates bill of $11 when given two prices of $5 each" ~:
+      let
+        taxable = Taxable $ const 1
+        bill' = bill taxable
+      in do
+        11 @=? bill' [5, 5]
     ]
 
 taxTests =
