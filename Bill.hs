@@ -2,9 +2,7 @@ module Bill where
 
 import Control.Monad.Reader
 
-import Tax
-
-newtype Taxable = Taxable { tax' :: Double -> Double }
+newtype Taxable = Taxable { tax :: Double -> Double }
 
 type TaxableReader = Reader Taxable
 
@@ -13,6 +11,6 @@ bill prices =
   let
     totalPrice = sum prices
   in do
-    tax'' <- asks tax'
-    let taxOfPrices = tax'' totalPrice
+    tax' <- asks tax
+    let taxOfPrices = tax' totalPrice
     return $ totalPrice + taxOfPrices
