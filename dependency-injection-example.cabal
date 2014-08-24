@@ -1,0 +1,20 @@
+name:                dependency-injection-example
+version:             0.1.0
+author:              Adam Russell
+maintainer:          adamlr6+pub@gmail.com
+build-type:          Simple
+cabal-version:       >= 1.10
+
+executable partitions
+  main-is:             Main.hs
+  build-depends:       base,
+                       mtl
+
+test-suite test
+  type:                exitcode-stdio-1.0
+  main-is:             Test.hs
+  ghc-options:         -Wall
+  build-depends:       base,
+                       mtl,
+                       HUnit
+

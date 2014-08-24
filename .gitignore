@@ -1,6 +1,8 @@
+.cabal-sandbox/
 cabal-dev/
 dist/
 *.hi
 *.o
 *~
 *.sw?
+cabal.sandbox.config
