@@ -1,9 +1,11 @@
 import Control.Monad.Reader
+import qualified System.Exit
 import Test.HUnit
 
 import qualified Bill
 import qualified Tax
 
+billTests :: [Test]
 billTests =
     [ "calculates bill of 0 when no prices given" ~:
       let
@@ -19,6 +21,7 @@ billTests =
         11 @=? bill [5, 5]
     ]
 
+taxTests :: [Test]
 taxTests =
     [ "calculates tax of $0 when no taxable given" ~: do
       0 @=? Tax.tax 0
@@ -26,7 +29,17 @@ taxTests =
       1 @=? Tax.tax 10.0
     ]
 
-tests = test $ billTests ++ taxTests
-
-main :: IO Counts
-main = runTestTT tests
+main :: IO ()
+main =
+  let
+    allTests = [ billTests
+               , taxTests
+               ]
+    test' = test . concat $ allTests
+  in do
+    counts' <- runTestTT test'
+    let failures' = failures counts'
+    let errors' = errors counts'
+    if failures' == 0 && errors' == 0
+      then System.Exit.exitSuccess
+      else System.Exit.exitFailure
